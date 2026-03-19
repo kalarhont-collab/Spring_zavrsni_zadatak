@@ -20,7 +20,7 @@ public class UpisService {
     private PolaznikRepository polaznikRepository;
 
     @Autowired
-    private ProgramObrazovanjaRepository programRepo;
+    private ProgramObrazovanjaRepository programObrazovanjaRepository;
 
 
     public List<UpisDTO> getAll() {
@@ -29,15 +29,15 @@ public class UpisService {
 
 
     public UpisDTO getById(Long id) {
-        Upis u = repository.findById(id).orElseThrow(() -> new RuntimeException("Upis not found"));
+        Upis u = repository.findById(id).orElseThrow(() -> new RuntimeException("Upis nije pronađen"));
         return toDTO(u);
     }
 
 
     public Upis save(Long polaznikId, Long programId) {
         Upis u = new Upis();
-        u.setPolaznik(polaznikRepository.findById(polaznikId).orElseThrow(() -> new RuntimeException("Polaznik not found")));
-        u.setProgramObrazovanja(programRepo.findById(programId).orElseThrow(() -> new RuntimeException("Program not found")));
+        u.setPolaznik(polaznikRepository.findById(polaznikId).orElseThrow(() -> new RuntimeException("Polaznik nije pronađen")));
+        u.setProgramObrazovanja(programObrazovanjaRepository.findById(programId).orElseThrow(() -> new RuntimeException("Program nije pronađen")));
         return repository.save(u);
     }
 
